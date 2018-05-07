@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signature</title>
+	<link rel="stylesheet" type="text/css" href="./signature.css">
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<section class="signature-component">
+		  <h1>Draw Signature</h1>
+		  <h2>with mouse or touch</h2>
+
+		  <canvas id="signature-pad" width="400" height="200"></canvas>
+
+		  <div>
+		    <button id="save">Save</button>
+		    <button id="clear">Clear</button>
+		  </div>
+		</section>
+	</div>
+
+</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="./signature.js"></script>
+    <script type="text/javascript">
+    	var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+		    backgroundColor: 'rgba(255, 255, 255, 0)',
+		    penColor: 'rgb(0, 0, 0)',
+		    velocityFilterWeight: .7,
+		    minWidth: 0.5,
+		    maxWidth: 2.5,
+		    throttle: 16, // max x milli seconds on event update, OBS! this introduces lag for event update
+		    minPointDistance: 3,
+		});
+		var saveButton = document.getElementById('save'),
+		    clearButton = document.getElementById('clear');
+
+		saveButton.addEventListener('click', function(event) {
+		    var data = signaturePad.toDataURL('image/png');
+		    window.open(data);
+		});
+		clearButton.addEventListener('click', function(event) {
+		    signaturePad.clear();
+		});
+
+    </script>
+</body>
+</html>
